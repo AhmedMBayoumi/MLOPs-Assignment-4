@@ -27,6 +27,5 @@ The original `ml-pipeline.yml` file contained three primary technical bugs that 
 
 The corrected pipeline was validated through multiple runs on GitHub Actions.
 
-- **Workflow Execution**: Successful runs were recorded for both `push` and `pull_request` events, with each run taking approximately 2 minutes to complete.
-- **Branch Strategy**: Final validation was conducted on a test branch to comply with requirements regarding branch-specific execution.
-- **Security Integration**: The pipeline includes GitGuardian security checks to ensure no secrets are exposed in the codebase.
+- Successful runs were recorded for both `push` and `pull_request` events, with each run taking approximately 2 minutes to complete.
+- Final validation was conducted on a test branch to comply with requirements regarding branch-specific execution.
