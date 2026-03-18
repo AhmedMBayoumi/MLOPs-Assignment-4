@@ -4,7 +4,7 @@ import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
-import numpy as np
+
 
 class Generator(nn.Module):
     def __init__(self, noise_dim):
@@ -28,6 +28,7 @@ class Generator(nn.Module):
 
     def forward(self, x):
         return self.main(x)
+
 
 class Discriminator(nn.Module):
     def __init__(self):
@@ -102,9 +103,12 @@ for epoch in range(NUM_EPOCHS):
         generator_optimizer.step()
 
         if i % 100 == 0:
-            print(f'Epoch [{epoch+1}/{NUM_EPOCHS}], Step [{i+1}/{len(train_loader)}], '
-                  f'Discriminator Loss: {real_loss.item() + fake_loss.item():.4f}, '
+            print(f'Epoch [{epoch+1}/{NUM_EPOCHS}], '
+                  f'Step [{i+1}/{len(train_loader)}], '
+                  f'Discriminator Loss: '
+                  f'{real_loss.item() + fake_loss.item():.4f}, '
                   f'Generator Loss: {gen_loss.item():.4f}')
+
 
 def generate_and_save_images(model, epoch, noise):
     model.eval()
@@ -112,7 +116,7 @@ def generate_and_save_images(model, epoch, noise):
         fake_images = model(noise).cpu()
         fake_images = fake_images.view(fake_images.size(0), 28, 28)
 
-        fig = plt.figure(figsize=(4, 4))
+        plt.figure(figsize=(4, 4))
         for i in range(fake_images.size(0)):
             plt.subplot(4, 4, i + 1)
             plt.imshow(fake_images[i], cmap='gray')
@@ -123,4 +127,4 @@ def generate_and_save_images(model, epoch, noise):
 
 
 test_noise = torch.randn(16, NOISE_DIM, device=device)
-generate_and_save_images(generator, NUM_EPOCHS, test_noise)
+generate_and_save_images(generator, NUM_EPOCHS, test_noise)
